@@ -7,5 +7,5 @@ The simple coinbase currencies application allows user to add a like to the curr
 
 ## Installation
 
-Clone the reposoitory and run the index.html file by opening it with any browser.
+Clone the repository and run the index.html file by opening it with any browser.
 
