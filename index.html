@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="resources/css/index.css">
+  <link rel="stylesheet" href="resources/css/form.css">
+
+  <script src="src/index.js"></script>
+  <title>CoinBase Currencies</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+         integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="header">
+    <h1>
+      Coinbase Currencies
+    </h1>
+    <button id="reload-button" class="add-button">
+      <img class="reload-icon" src="assets/reload.svg" alt="update">
+    </button>
+  </div>
+  <div class="app" id="app">
+    <div class="loader"></div>
+  </div>
+
+  <!-- ADD FORM -->
+  <div id="openModal" class="modalDialog">
+    <div> <a href="#close" title="Close" class="close" id="close">X</a>
+        <form id="addForm" method="GET">
+            <div class="formtitle">
+                <h3 id="text">ADD ENTRY</h3>
+            </div>
+            <div class="field">
+                <span class="name"> ID: </span> <input required name="ID" type="text" id="ID">
+            </div>
+            <div class="field">
+                <span class="name"> Name: </span> <input required name="name" type="text" id="name">
+            </div>
+            <div class="field">
+                <span class="name"> MinValue: </span> <input required name="min_value" type="text"
+                    id="min_value">
+            </div>
+            <input id="submit" type="submit" value="ADD">
+        </form>
+    </div>
+  </div>
+
+
+  <!-- UPDATE FORM  -->
+  <div id="updateModal" class="modalDialog">
+    <div> <a href="#close" title="Close" class="close">X</a>
+        <form id="updateForm" method="GET">
+            <div class="formtitle">
+                <h3 id="text">EDIT ENTRY</h3>
+            </div>
+            <div class="field">
+                <span class="name"> ID: </span> <input required disabled name="ID" type="text" id="update-id">
+            </div>
+            <div class="field">
+                <span class="name"> Name: </span> <input required name="name" type="text" id="update-name">
+            </div>
+            <div class="field">
+                <span class="name"> MinValue: </span> <input required name="min_value" type="text"
+                    id="update-value">
+            </div>
+            <input id="submit" type="submit" value="UPDATE">
+        </form>
+    </div>
+  </div>
+  
+</body>
+
+
+
+</html>
