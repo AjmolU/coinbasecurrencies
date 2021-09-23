@@ -35,9 +35,9 @@ function table() {
   let tdName = document.createElement('td');
   tdName.innerHTML = 'NAME';
   tdName.style.fontWeight = 'bold'
-  let tdmin_size = document.createElement('td');
-  tdmin_size.innerHTML = 'MIN SIZE';
-  tdmin_size.style.fontWeight = 'bold'
+  let tdminSize = document.createElement('td');
+  tdminSize.innerHTML = 'MIN SIZE';
+  tdminSize.style.fontWeight = 'bold'
   let tdAction = document.createElement('td');
   tdAction.innerHTML = 'ACTION';
   tdAction.style.fontWeight = 'bold'
@@ -46,7 +46,7 @@ function table() {
   theadTwo.appendChild(trTwo);
   trTwo.appendChild(tdId);
   trTwo.appendChild(tdName);
-  trTwo.appendChild(tdmin_size);
+  trTwo.appendChild(tdminSize);
   trTwo.appendChild(tdAction);
 
   let tBody = document.createElement('tbody');
@@ -63,10 +63,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById("addForm").addEventListener('submit', function (e) {
     e.preventDefault(); //preventing default submit action
     //passing object to add_record function
-    add_record({
+    add({
       id: e.target[0].value.replace(/\s/g, ''), //removing space from id (id can't have space)
       name: e.target[1].value,
-      min_size: e.target[2].value
+      minSize: e.target[2].value
     })
     //closing modal(popup form) after adding new record
     document.getElementById("close").click();
@@ -78,7 +78,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     update_record({
       id: e.target[0].value.replace(/\s/g, ''), //removing space from id (id can't have space)
       name: e.target[1].value,
-      min_size: e.target[2].value
+      minSize: e.target[2].value
     })
     //closing modal(popup form) after updating record
     document.getElementById("close").click();
@@ -127,11 +127,11 @@ function loadrecords() { //READ
     });
 }
 
-function add_record(data) { //CREATE
+function add(data) { //CREATE
   let tdContent = `<td>
                 <button onclick="delete_record('${data.id}')" id="delete-button-${data.id}" class="del-button"><img class="icon" src="./assets/trash.svg" alt="update"></button>
                 <button class="update-button">
-                  <a href="#updateModal" onclick="editrecord('${data.id}','${data.name}','${data.min_size}')">
+                  <a href="#updateModal" onclick="editrecord('${data.id}','${data.name}','${data.minSize}')">
                   <img class="icon" src="./assets/edit.svg" alt="edit">
                   </a>
                 </button>
@@ -154,7 +154,7 @@ function add_record(data) { //CREATE
   tdName.setAttribute('id', 'name');
   tdName.innerText = data.name;
   tdSize.setAttribute('id', 'minVal');
-  tdSize.innerText = data.min_size;
+  tdSize.innerText = data.minSize;
   tr.appendChild(tdId);
   tr.appendChild(tdName);
   tr.appendChild(tdSize);
@@ -168,7 +168,7 @@ function update_record(data) { //UPDATE
   let name = row.querySelector('#name');
   let minVal = row.querySelector('#minVal');
   name.innerText = data.name;
-  minVal.innerText = data.min_size
+  minVal.innerText = data.minSize
 }
 
 //this function deletes specific record from api
