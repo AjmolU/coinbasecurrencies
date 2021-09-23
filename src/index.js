@@ -89,41 +89,43 @@ window.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
+function renderCurrency(currency, index) {
+  let id = currency.id;
+  let name = currency.name;
+  let minValue = currency.min_size;
+  className = index % 2 === 0 ? "pure-table-odd" : "pure-table-even";
+  //content is single record from api
+  return `<tr class=${className} id="record-${id}">
+          <td id="id"> ${id} </td>
+          <td id="name"> ${name} </td>
+          <td id="minVal"> ${minValue}</td>
+          <td>
+          <button onclick="delete_record('${id}')" id="delete-button-${id}" class="del-button"><img class="icon" src="./assets/trash.svg" alt="update"></button>
+          <button class="update-button">
+            <a href="#updateModal" onclick="editrecord('${id}','${name}','${minValue}')">
+            <img class="icon" src="./assets/edit.svg" alt="edit">
+            </a>
+          </button>
+          <button onclick="heart('${id}')" class="heart-button" id="heart-${id}">
+          <svg class="icon" id="empty" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>                   
+          </button>
+          </td>
+          </tr>`;
+}
+
 function loadrecords() { //READ
   fetch(coinBaseApiSite)
     .then(response => response.json())
-    .then(function (data) {
+    .then(data => {
       const currenciesArr = data.data;
       let app = document.getElementById("app");
       //we render table dynamically after our data from api is loaded and append to app.
       app.innerHTML = table(); //appending table to app
       let tbody = document.getElementsByClassName('table-entries')[0]; //getting table body 
       //looping over each record and adding to table
-      for (let i = 0; i < currenciesArr.length; i++) {
-        let id = currenciesArr[i].id;
-        let name = currenciesArr[i].name;
-        let minValue = currenciesArr[i].min_size;
-        className = i % 2 === 0 ? "pure-table-odd" : "pure-table-even";
-        //content is single record from api 
-        content =
-          `<tr class=${className} id="record-${id}">
-            <td id="id"> ${id} </td>
-            <td id="name"> ${name} </td>
-            <td id="minVal"> ${minValue}</td>
-            <td>
-            <button onclick="delete_record('${id}')" id="delete-button-${id}" class="del-button"><img class="icon" src="./assets/trash.svg" alt="update"></button>
-            <button class="update-button">
-              <a href="#updateModal" onclick="editrecord('${id}','${name}','${minValue}')">
-              <img class="icon" src="./assets/edit.svg" alt="edit">
-              </a>
-            </button>
-            <button onclick="heart('${id}')" class="heart-button" id="heart-${id}">
-            <svg class="icon" id="empty" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>                   
-            </button>
-            </td>
-            </tr>`;
-        tbody.innerHTML += content; //appending content
-      }
+      currenciesArr.forEach((currency, i) => {
+        tbody.innerHTML += renderCurrency(currency, i); //appending content
+      })
     });
 }
 
